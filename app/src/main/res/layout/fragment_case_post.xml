@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
+    tools:context=".CasePostFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/FormSwipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:scrollbars="vertical"
+                app:cardElevation="10dp"
+                app:cardMaxElevation="50dp"
+                app:contentPadding="10dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/CustregHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="20dp"
+                            android:text="Case Registrarion"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/CustRegDetailHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/CustregHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Customer Details"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/TrackIdLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CustRegDetailHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/TrackId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:ems="10"
+                                android:hint="Track Id"
+                                android:inputType="number"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/CompanyNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/TrackIdLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/CompanyName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:ems="10"
+                                android:hint="Company Name"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/PatientNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CompanyNameLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/PatientName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:ems="10"
+                                android:hint="Patient Name"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/HospitalNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/PatientNameLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/HospitalName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                android:ems="10"
+                                android:hint="Hospital Name"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/PhoneLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/HospitalNameLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:ems="10"
+                                android:hint="Phone Number"
+                                android:inputType="phone"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <View
+                            android:id="@+id/divider1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/PhoneLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#000000"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/EmployeeHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/divider1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Employee"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+
+                        <View
+                            android:id="@+id/divider2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/EmployeeHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="#000000"
+                            android:gravity="center" />
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/TreatingDoctorLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/divider2"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/TreatingDoctor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:hint="Treating Doctor"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/AddressLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/TreatingDoctorLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Address"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/LandMarkLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/AddressLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/LandMark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Landmark"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/StateLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/LandMarkLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/State"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="State"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/DistrictLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/StateLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/District"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="District"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/PincodeLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/DistrictLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Pincode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Pincode"
+                                android:inputType="number"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/VendorLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/PincodeLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Vendor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Vendor or IO"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <View
+                            android:id="@+id/divider3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/VendorLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#000000"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/CaseDateHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/divider3"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Case Date"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/CaseDateButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CaseDateHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/themeWidgetColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Pick A Date"
+                            android:textColor="@android:color/background_light" />
+
+
+                        <View
+                            android:id="@+id/divider4"
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/CaseDateButton"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#000000"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:id="@+id/DateOfAdmissionHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/divider4"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Date Of Admission"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/DateOfAdmissionButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/DateOfAdmissionHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/themeWidgetColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Pick A Date"
+                            android:textColor="@android:color/background_light" />
+
+
+                        <View
+                            android:id="@+id/divider5"
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:layout_below="@id/DateOfAdmissionButton"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#000000"
+                            android:gravity="center" />
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/RemarksLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/divider5"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Remarks"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Remarks or Other Findings"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/VerifierNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/RemarksLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/VerifierName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Verifier Name"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <Button
+                            android:id="@+id/SubmitButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/VerifierNameLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/themeColor"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:text="Submit"
+                            android:textColor="@android:color/background_light" />
+
+
+                    </RelativeLayout>
+                </ScrollView>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
