@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "445340673480",
+    "firebase_url": "https://vishwamedi.firebaseio.com",
+    "project_id": "vishwamedi",
+    "storage_bucket": "vishwamedi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445340673480:android:acd1a2650ad74375",
+        "android_client_info": {
+          "package_name": "example.com.vishwamedi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445340673480-492cufumav0shn1p0jjvp3add8ds4cb6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "example.com.vishwamedi",
+            "certificate_hash": "ccc94282bc8c67de17cde36bf554e53b504a1ae0"
+          }
+        },
+        {
+          "client_id": "445340673480-759j8fa9a7cc0s484iducb8gpllo6lp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOEo5-HqS3VgUNxnkJqJYGW3DZtFtFnkk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445340673480-759j8fa9a7cc0s484iducb8gpllo6lp5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
