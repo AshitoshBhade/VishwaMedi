@@ -3,4 +3,27 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit">Submit</string>
+    <string name="verifier_name">Verifier Name</string>
+    <string name="remarks_or_other_findings">Remarks or Other Findings</string>
+
+    <string name="date_of_admission">Date Of Admission</string>
+    <string name="case_date">Case Date</string>
+    <string name="vendor_or_io">Vendor or IO</string>
+    <string name="pincode">Pincode</string>
+    <string name="district">District</string>
+    <string name="state">State</string>
+    <string name="landmark">Landmark</string>
+    <string name="address">Address</string>
+    <string name="treating_doctor">Treating Doctor</string>
+    <string name="employee">Employee</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="company_name">Company Name</string>
+    <string name="track_id">Track Id</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="case_registrarion">Case Registrarion</string>
+    <string name="pick_a_date">Pick A Date</string>
+    <string name="case_registration">Case Registration</string>
 </resources>
