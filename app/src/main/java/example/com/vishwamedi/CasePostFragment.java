@@ -76,6 +76,8 @@ public class CasePostFragment extends Fragment {
 
 
         trackId=v.findViewById(R.id.TrackId);
+        trackId.setEnabled(false);
+
         compName=v.findViewById(R.id.CompanyName);
         patientName=v.findViewById(R.id.PatientName);
         hospitalName=v.findViewById(R.id.HospitalName);
@@ -114,12 +116,17 @@ public class CasePostFragment extends Fragment {
         StatusSpinner.setAdapter(adapter);
 
 
-        StatusSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        StatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 caseStatusStr=parent.getItemAtPosition(position).toString();
             }
-        });
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                    caseStatusStr=null;
+            }
+        } );
 
         caseDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +224,29 @@ public class CasePostFragment extends Fragment {
 
 
 
+        fs.collection("CaseId").document("ID").get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if (task.isSuccessful())
+                        {
+                            trackIdStr=task.getResult().getString("CurrentID");
+                            trackId.setText(trackIdStr);
+
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Toast.makeText(getActivity(), "Could not fetched Track ID: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                pd.hide();
+                pd.dismiss();
+            }
+        });
+
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,114 +275,94 @@ public class CasePostFragment extends Fragment {
                 remarkStr=remark.getText().toString();
                 verifierStr=verifier.getText().toString();
 
-                fs.collection("CaseId").document("ID").get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                                if (task.isSuccessful())
-                                {
-                                    trackIdStr=task.getResult().getString("CurrentID");
-                                    trackId.setText(trackIdStr);
+                if(valid())
+                {
+
+                    data=new HashMap<String,Object>();
 
 
-                                    if(valid())
+                    data.put("TrackId",trackIdStr);
+                    data.put("CompanyName",compNameStr);
+                    data.put("PatientName",patientNameStr);
+                    data.put("DiseaseName",diseaseStr);
+                    data.put("CaseStatus",caseStatusStr);
+                    data.put("HospitalName",hospitalNameStr);
+                    data.put("PhoneNo",phoneNoStr);
+                    data.put("TreatingDoc",treatingDocStr);
+                    data.put("Address",addrStr);
+                    data.put("Landmark",landmarkStr);
+                    data.put("State",stateStr);
+                    data.put("District",distStr);
+                    data.put("Pincode",pinStr);
+                    data.put("Vendor",vendorStr);
+                    data.put("Remark",remarkStr);
+                    data.put("Verifier",verifierStr);
+                    data.put("CaseDate",caseDateStr);
+                    data.put("DateOfAdmission",dateOfAdmissionStr);
+                    data.put("Status","1");
+
+                    fs.collection("Cases").document(trackIdStr).set(data, SetOptions.merge())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful())
                                     {
+                                        Toast.makeText(getActivity(), "Successfully uploaded data", Toast.LENGTH_SHORT).show();
 
-                                        data=new HashMap<String,Object>();
+                                        pd.setMessage("Updating Track Id");
 
+                                        Map<String,Object> data=new HashMap<>();
+                                        int id=Integer.parseInt(trackIdStr);
+                                        id++;
 
-                                        data.put("TrackId",trackIdStr);
-                                        data.put("CompanyName",compNameStr);
-                                        data.put("PatientName",patientNameStr);
-                                        data.put("DiseaseName",diseaseStr);
-                                        data.put("CaseStatus",caseStatusStr);
-                                        data.put("HospitalName",hospitalNameStr);
-                                        data.put("PhoneNo",phoneNoStr);
-                                        data.put("TreatingDoc",treatingDocStr);
-                                        data.put("Address",addrStr);
-                                        data.put("Landmark",landmarkStr);
-                                        data.put("State",stateStr);
-                                        data.put("District",distStr);
-                                        data.put("Pincode",pinStr);
-                                        data.put("Vendor",vendorStr);
-                                        data.put("Remark",remarkStr);
-                                        data.put("Verifier",verifierStr);
-                                        data.put("CaseDate",caseDateStr);
-                                        data.put("DateOfAdmission",dateOfAdmissionStr);
+                                        data.put("CurrentID",String.valueOf(id));
 
-                                        fs.collection("Cases").document(trackIdStr).set(data, SetOptions.merge())
+                                        fs.collection("CaseId").document("ID").update(data)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
 
                                                         if (task.isSuccessful())
                                                         {
-                                                            Toast.makeText(getActivity(), "Successfully uploaded data", Toast.LENGTH_SHORT).show();
 
-                                                            pd.setMessage("Updating Track Id");
-
-                                                            Map<String,Object> data=new HashMap<>();
-                                                            int id=Integer.parseInt(trackIdStr);
-                                                            id++;
-
-                                                            data.put("CurrentID",id);
-
-                                                            fs.collection("CaseId").document("ID").update(data)
-                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                        @Override
-                                                                        public void onComplete(@NonNull Task<Void> task) {
-
-                                                                            if (task.isSuccessful())
-                                                                            {
-
-                                                                                Toast.makeText(getActivity(), "Successfully updated Track Id", Toast.LENGTH_SHORT).show();
-                                                                                pd.hide();
-                                                                                pd.dismiss();
-                                                                                Intent intent=new Intent(getActivity(),MainActivity.class);
-                                                                                startActivity(intent);
-                                                                            }
-
-                                                                        }
-                                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-
-                                                                    Toast.makeText(getActivity(), "Could not update Track ID"+e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                                                    pd.hide();
-                                                                    pd.dismiss();
-                                                                }
-                                                            });
-
-
-
+                                                            Toast.makeText(getActivity(), "Successfully updated Track Id", Toast.LENGTH_SHORT).show();
+                                                            pd.hide();
+                                                            pd.dismiss();
+                                                            Intent intent=new Intent(getActivity(),MainActivity.class);
+                                                            startActivity(intent);
                                                         }
+
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
 
-                                                Toast.makeText(getActivity(), "Could not upload date "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "Could not update Track ID"+e.getMessage(), Toast.LENGTH_SHORT).show();
 
                                                 pd.hide();
                                                 pd.dismiss();
                                             }
                                         });
+
+
+
                                     }
-
-
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(getActivity(), "Could not fetched Track ID: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        pd.hide();
-                        pd.dismiss();
-                    }
-                });
+                            Toast.makeText(getActivity(), "Could not upload date "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            pd.hide();
+                            pd.dismiss();
+                        }
+                    });
+                }
+
+
 
             }
         });
@@ -388,7 +398,7 @@ public class CasePostFragment extends Fragment {
             Disease.setError("Please Enter Disease name");
             Disease.setFocusable(true);
             return false;
-        }else if(caseStatusStr.isEmpty())
+        }else if(caseStatusStr==null || caseStatusStr.isEmpty())
         {
             Toast.makeText(getActivity(), "Please Select Case Status", Toast.LENGTH_SHORT).show();
             return false;
