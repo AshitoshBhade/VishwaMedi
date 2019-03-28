@@ -2,10 +2,42 @@ package example.com.vishwamedi.model;
 
 public class CasePostModel {
 
-    private String TrackId,CompanyName,PatientName,HospitalName,PhoneNo,TreatingDoc,Address,Landmark,State,
-                    District,Pincode,Vendor,Remark,Verifier,CaseDate,DateOfAdmission;
+    private String TrackId,CompanyName,PatientName,HospitalName,PhoneNo,TreatingDoc,Address,Landmark,State,DiseaseName,
+                    District,Pincode,Vendor,Remark,Verifier,CaseDate,DateOfAdmission,CaseStatus,DateTime,Status;
 
     public CasePostModel() {
+    }
+
+    public String getDiseaseName() {
+        return DiseaseName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        DiseaseName = diseaseName;
+    }
+
+    public String getCaseStatus() {
+        return CaseStatus;
+    }
+
+    public void setCaseStatus(String caseStatus) {
+        CaseStatus = caseStatus;
+    }
+
+    public String getDateTime() {
+        return DateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        DateTime = dateTime;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 
     public CasePostModel(String caseDate, String dateOfAdmission) {
@@ -14,6 +46,12 @@ public class CasePostModel {
     }
 
 
+    public CasePostModel(String diseaseName, String caseStatus, String dateTime, String status) {
+        DiseaseName = diseaseName;
+        CaseStatus = caseStatus;
+        DateTime = dateTime;
+        Status = status;
+    }
 
     public CasePostModel(String trackId, String companyName, String patientName, String hospitalName, String phoneNo, String treatingDoc, String address, String landmark, String state, String district, String pincode, String vendor, String remark, String verifier) {
         TrackId = trackId;

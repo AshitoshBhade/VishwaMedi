@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private CasePostFragment casePostFragment;
+    private HomeFragment homeFragment;
     private BottomNavigationView navigationView;
     private android.support.v7.widget.Toolbar mtoolbar;
     private ProgressDialog pd;
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.HomeNav:
+                        homeFragment=new HomeFragment();
+                        setFragment(homeFragment);
                         return true;
 
                     case R.id.PostCaseNav:

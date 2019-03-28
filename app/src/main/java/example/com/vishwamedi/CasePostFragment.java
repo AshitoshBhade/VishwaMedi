@@ -26,9 +26,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +60,7 @@ public class CasePostFragment extends Fragment {
     private String trackIdStr,compNameStr,patientNameStr,hospitalNameStr,phoneNoStr,caseStatusStr,diseaseStr,
             treatingDocStr,addrStr,landmarkStr,stateStr,distStr,pinStr,vendorStr,remarkStr,verifierStr;
 
-    private String caseDateStr,dateOfAdmissionStr;
+    private String caseDateStr,dateOfAdmissionStr,dateStr,timeStr;
 
     private FirebaseFirestore fs;
     private Map<String,Object> data;
@@ -62,7 +70,8 @@ public class CasePostFragment extends Fragment {
     private Spinner StatusSpinner;
     private List<String> type;
     private ArrayAdapter<String> adapter;
-
+    private LocalDate localDate;
+    private Time localTime;
     public CasePostFragment() {
         // Required empty public constructor
     }
@@ -105,6 +114,20 @@ public class CasePostFragment extends Fragment {
 
         StatusSpinner=v.findViewById(R.id.CaseStatus);
 
+        localDate=new LocalDate();
+
+        dateStr=localDate.toString();
+
+        Calendar cal = Calendar.getInstance();
+
+        Date date=cal.getTime();
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        timeStr=dateFormat.format(date);
+
+
+        Toast.makeText(getActivity(), "date: "+dateStr+"Time: "+timeStr, Toast.LENGTH_SHORT).show();
 
         type=new ArrayList<String>();
         type.add("Planned");
@@ -300,6 +323,7 @@ public class CasePostFragment extends Fragment {
                     data.put("Verifier",verifierStr);
                     data.put("CaseDate",caseDateStr);
                     data.put("DateOfAdmission",dateOfAdmissionStr);
+                    data.put("DateTime",dateStr+" "+timeStr);
                     data.put("Status","1");
 
                     fs.collection("Cases").document(trackIdStr).set(data, SetOptions.merge())
@@ -471,6 +495,11 @@ public class CasePostFragment extends Fragment {
         else if(dateOfAdmissionStr.isEmpty())
         {
             admissionDateBtn.setError("Please Select Date");
+            return false;
+        }
+        else if(dateStr.isEmpty() || timeStr.isEmpty())
+        {
+            Toast.makeText(getActivity(), "Could not get date time", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(remarkStr.isEmpty())
