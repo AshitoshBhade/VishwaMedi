@@ -26,4 +26,5 @@
     <string name="case_registrarion">Case Registrarion</string>
     <string name="pick_a_date">Pick A Date</string>
     <string name="case_registration">Case Registration</string>
+    <string name="disease">Disease</string>
 </resources>

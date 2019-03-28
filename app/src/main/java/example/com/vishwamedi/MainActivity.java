@@ -1,5 +1,6 @@
 package example.com.vishwamedi;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,12 +14,15 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 
+import com.google.firebase.FirebaseApp;
+
 public class MainActivity extends AppCompatActivity {
 
 
     private CasePostFragment casePostFragment;
     private BottomNavigationView navigationView;
     private android.support.v7.widget.Toolbar mtoolbar;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        FirebaseApp.initializeApp(this);
+
         navigationView = findViewById(R.id.bottom_navigation);
         mtoolbar = findViewById(R.id.MainToolbar);
 
         setSupportActionBar(mtoolbar);
+
+        pd=new ProgressDialog(this);
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

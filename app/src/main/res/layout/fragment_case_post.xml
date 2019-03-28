@@ -124,10 +124,32 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/HospitalNameLayout"
+                            android:id="@+id/DiseaseLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/PatientNameLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp">
+
+                            <EditText
+                                android:id="@+id/Disease"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:ems="10"
+                                android:hint="@string/disease"
+                                android:inputType="text"
+                                android:textSize="14sp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/HospitalNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/DiseaseLayout"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp">
@@ -165,11 +187,34 @@
                                 android:textSize="14sp" />
                         </android.support.design.widget.TextInputLayout>
 
+                        <TextView
+                            android:id="@+id/CaseStatusHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/PhoneLayout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Case Status"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+
+                        <Spinner
+                            android:id="@+id/CaseStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/CaseStatusHead"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:ems="10"
+                            tools:ignore="HardcodedText" />
+
                         <View
                             android:id="@+id/divider1"
                             android:layout_width="fill_parent"
                             android:layout_height="2dp"
-                            android:layout_below="@id/PhoneLayout"
+                            android:layout_below="@id/CaseStatus"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
