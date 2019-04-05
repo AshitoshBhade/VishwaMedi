@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -18,11 +19,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class CasDetailFragment extends Fragment {
 
     private TextView status,createdBy,TrackId,CompanyName,Patient,hospitalName,Phone,Employee,TreatingDoc,
-                    Addr,Landmark,State,Dist,Pin,Vendor,CaseDate,AdmissionDate,Remark,Verifier;
+                    Addr,Landmark,State,Dist,Pin,Vendor,CaseDate,AdmissionDate,Remark,Verifier,CaseDateTime,CaseEployee;
 
     private FirebaseFirestore fs;
 
     private Bundle bundle;
+    private Button startActionBtn;
     private ProgressDialog pd;
     public CasDetailFragment() {
         // Required empty public constructor
@@ -38,6 +40,11 @@ public class CasDetailFragment extends Fragment {
         pd=new ProgressDialog(getActivity());
 
         bundle=getArguments();
+
+        startActionBtn=v.findViewById(R.id.StartActionBtn);
+
+        CaseDateTime=v.findViewById(R.id.DurationHint);
+        CaseEployee=v.findViewById(R.id.EmployeeStart);
 
         status=v.findViewById(R.id.DetailCurrentStatus);
         createdBy=v.findViewById(R.id.DetailCreatedBy);
@@ -69,6 +76,8 @@ public class CasDetailFragment extends Fragment {
             status.setText("Closed");
         }
 
+        CaseDateTime.setText(bundle.getString("DateTime"));
+        CaseEployee.setText("Me");
         createdBy.setText("Me");
         TrackId.setText(bundle.getString("TrackID"));
         CompanyName.setText(bundle.getString("CompanyName"));
@@ -95,6 +104,12 @@ public class CasDetailFragment extends Fragment {
      //   pd.show();
 
 
+        startActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return v;
     }

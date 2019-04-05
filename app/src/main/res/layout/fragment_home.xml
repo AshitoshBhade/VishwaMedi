@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-   <ScrollView
-       android:layout_height="100dp"
-       android:layout_width="match_parent"
-       android:scrollbars="horizontal"
-       android:id="@+id/HomeScroll">
+    <ScrollView
+        android:id="@+id/HomeScroll"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#2196F3"
+        android:scrollbars="horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </LinearLayout>
-   </ScrollView>
+    </ScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/CasesRecycler"
@@ -24,4 +27,23 @@
         android:layout_height="match_parent"
         android:layout_below="@id/HomeScroll"
         android:background="@android:color/holo_orange_light"></android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/AddPostBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/themeWidgetColor"
+        android:baseline="@dimen/cardview_default_elevation"
+        android:foreground="@color/cardview_light_background"
+        android:foregroundGravity="center"
+        android:padding="2dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/themeWidgetColor"
+        app:elevation="10dp"
+        app:rippleColor="@color/cardview_light_background" />
+
 </RelativeLayout>

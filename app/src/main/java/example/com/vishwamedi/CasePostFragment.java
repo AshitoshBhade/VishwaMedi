@@ -127,7 +127,7 @@ public class CasePostFragment extends Fragment {
         timeStr=dateFormat.format(date);
 
 
-        Toast.makeText(getActivity(), "date: "+dateStr+"Time: "+timeStr, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(getActivity(), "date: "+dateStr+"Time: "+timeStr, Toast.LENGTH_SHORT).show();
 
         type=new ArrayList<String>();
         type.add("Planned");

@@ -3,6 +3,7 @@ package example.com.vishwamedi;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,9 +37,13 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<CasePostModel> list;
     private HomeAdapter adapter;
+    private FetchExcelFragment fetchExcelFragment;
     private RecyclerView recyclerView;
     private FirebaseFirestore fs;
     private ProgressDialog pd;
+    private CasePostFragment casePostFragment;
+    private FloatingActionButton addpostBtn;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -55,7 +60,9 @@ public class HomeFragment extends Fragment {
 
         list=new ArrayList<>();
 
-        adapter=new HomeAdapter(list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+        adapter=new HomeAdapter(getActivity(),list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+
+
 
 
         recyclerView=v.findViewById(R.id.CasesRecycler);
@@ -66,6 +73,33 @@ public class HomeFragment extends Fragment {
         pd.setMessage("Wait Until Loading");
         pd.setCanceledOnTouchOutside(false);
         pd.show();
+
+
+        addpostBtn=v.findViewById(R.id.AddPostBtn);
+
+
+        addpostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*
+                casePostFragment=new CasePostFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                        .add(casePostFragment,"PostCaseFragment").addToBackStack("PostCaseFragment");
+                fragmentTransaction.replace(R.id.MainLayout, casePostFragment);
+                fragmentTransaction.commit();
+                */
+
+                fetchExcelFragment=new FetchExcelFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                        .add(fetchExcelFragment,"fetchCsvFragment").addToBackStack("fetchCsvFragment");
+
+                fragmentTransaction.replace(R.id.MainLayout, fetchExcelFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
 
         //Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
         fs.collection("Cases").addSnapshotListener(new EventListener<QuerySnapshot>() {

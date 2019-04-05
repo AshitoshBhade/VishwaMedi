@@ -1,11 +1,19 @@
 package example.com.vishwamedi;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +43,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
 {
     private ArrayList<CasePostModel> list;
     private FragmentManager fragmentManager;
+    Activity activity;
+    public HomeAdapter(FragmentActivity activity, ArrayList<CasePostModel> list, FragmentManager supportFragmentManager) {
 
-    public HomeAdapter(ArrayList<CasePostModel > list, FragmentManager supportFragmentManager) {
-
+        this.activity=activity;
         this.list=list;
         fragmentManager=supportFragmentManager;
     }
@@ -81,7 +90,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
                 bundle.putString("AdmissionDate",list.get(position).getDateOfAdmission());
                 bundle.putString("Remark",list.get(position).getRemark());
                 bundle.putString("Verifier",list.get(position).getVerifier());
-
+                bundle.putString("DateTime",list.get(position).getDateTime());
 
 
 
@@ -100,11 +109,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
 
         holder.call.setTag(list.get(position).getPhoneNo());
         holder.call.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("PrivateApi")
             @Override
             public void onClick(View v) {
 
+                Intent callIntent = null;
+                try {
+                    callIntent = new Intent(activity, Class.forName(Intent.ACTION_CALL));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                callIntent.setData(Uri.parse(list.get(position).getPhoneNo()));
+
+                if (ActivityCompat.checkSelfPermission(activity,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 1);
+                }
+                activity.startActivity(callIntent);
             }
         });
+
+
 
         holder.location.setOnClickListener(new View.OnClickListener() {
             @Override
