@@ -89,8 +89,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
                 bundle.putString("CaseDate",list.get(position).getCaseDate());
                 bundle.putString("AdmissionDate",list.get(position).getDateOfAdmission());
                 bundle.putString("Remark",list.get(position).getRemark());
-                bundle.putString("Verifier",list.get(position).getVerifier());
-                bundle.putString("DateTime",list.get(position).getDateTime());
+
+                bundle.putString("Disease",list.get(position).getDiseaseName());
 
 
 

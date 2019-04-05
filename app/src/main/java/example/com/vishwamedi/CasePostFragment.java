@@ -62,6 +62,7 @@ public class CasePostFragment extends Fragment {
 
     private String caseDateStr,dateOfAdmissionStr,dateStr,timeStr;
 
+
     private FirebaseFirestore fs;
     private Map<String,Object> data;
     int mYear,mMonth,mDay;

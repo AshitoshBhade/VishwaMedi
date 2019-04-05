@@ -1,16 +1,32 @@
 package example.com.vishwamedi;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import javax.annotation.Nullable;
+
+import example.com.vishwamedi.model.AgentModel;
+import example.com.vishwamedi.model.CasePostModel;
 
 
 /**
@@ -23,9 +39,16 @@ public class CasDetailFragment extends Fragment {
 
     private FirebaseFirestore fs;
 
+    private AgentListAdapter agentListAdapter;
+
+    private ArrayList<AgentModel> list;
+
     private Bundle bundle;
-    private Button startActionBtn;
+    private Button AssignAgent;
     private ProgressDialog pd;
+
+    private Dialog dialog;
+
     public CasDetailFragment() {
         // Required empty public constructor
     }
@@ -41,9 +64,11 @@ public class CasDetailFragment extends Fragment {
 
         bundle=getArguments();
 
-        startActionBtn=v.findViewById(R.id.StartActionBtn);
+        fs=FirebaseFirestore.getInstance();
 
-        CaseDateTime=v.findViewById(R.id.DurationHint);
+        AssignAgent=v.findViewById(R.id.AssignAgentBtn);
+
+
         CaseEployee=v.findViewById(R.id.EmployeeStart);
 
         status=v.findViewById(R.id.DetailCurrentStatus);
@@ -64,8 +89,6 @@ public class CasDetailFragment extends Fragment {
         CaseDate=v.findViewById(R.id.DetailCaseDate);
         AdmissionDate=v.findViewById(R.id.DetailAdmissionDate);
         Remark=v.findViewById(R.id.DetailRemark);
-        Verifier=v.findViewById(R.id.DetailVerifier);
-
 
 
         if (bundle.get("Status").equals("1"))
@@ -76,8 +99,8 @@ public class CasDetailFragment extends Fragment {
             status.setText("Closed");
         }
 
-        CaseDateTime.setText(bundle.getString("DateTime"));
-        CaseEployee.setText("Me");
+
+
         createdBy.setText("Me");
         TrackId.setText(bundle.getString("TrackID"));
         CompanyName.setText(bundle.getString("CompanyName"));
@@ -96,7 +119,6 @@ public class CasDetailFragment extends Fragment {
         CaseDate.setText(bundle.getString("CaseDate"));
         AdmissionDate.setText(bundle.getString("AdmissionDate"));
         Remark.setText(bundle.getString("Remark"));
-        Verifier.setText(bundle.getString("Verifier"));
 
 
     //    pd.setMessage("Wait Until Loading");
@@ -104,12 +126,60 @@ public class CasDetailFragment extends Fragment {
      //   pd.show();
 
 
-        startActionBtn.setOnClickListener(new View.OnClickListener() {
+        AssignAgent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                dialog = new Dialog(Objects.requireNonNull(getActivity()));
+                dialog.setContentView(R.layout.agent_list_layout);
+                dialog.setCancelable(true);
+
+                RecyclerView recyclerView=dialog.findViewById(R.id.AgentListRecycler);
+
+                list=new ArrayList<>();
+
+                agentListAdapter=new AgentListAdapter(dialog,bundle,getActivity(),list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+
+                dialog.show();
+
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setAdapter(agentListAdapter);
+
+                pd.setMessage("Wait Until Loading");
+                pd.setCanceledOnTouchOutside(false);
+                pd.show();
+
+                fs.collection("Agent").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                        if (e != null) {
+                            Log.e("Error: " + e.getMessage(), "Error");
+                        } else {
+                            for (DocumentChange doc : Objects.requireNonNull(queryDocumentSnapshots).getDocumentChanges()) {
+                                if (doc.getType().equals(DocumentChange.Type.ADDED)) {
+
+                                    AgentModel model = doc.getDocument().toObject(AgentModel.class);
+                                    list.add(model);
+
+                                    agentListAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            pd.hide();
+                            pd.dismiss();
+                        }
+                    }
+                });
+
+
+
             }
         });
+
+
+
 
         return v;
     }

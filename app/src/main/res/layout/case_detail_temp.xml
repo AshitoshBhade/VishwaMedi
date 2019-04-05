@@ -18,6 +18,80 @@
             android:layout_height="wrap_content">
 
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/CaseDetailCard"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="@color/themeWidgetColor"
+                app:cardElevation="10dp"
+                app:contentPaddingBottom="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/themeColorSec"
+                    android:gravity="fill">
+
+                    <Switch
+                        android:id="@+id/StartSwitchBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="170dp"
+                        android:layout_marginTop="20dp"
+                        android:button="@android:color/holo_orange_light"
+                        android:gravity="fill" />
+
+                    <TextView
+                        android:id="@+id/StartHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/StartSwitchBtn"
+                        android:layout_marginStart="150dp"
+                        android:padding="2dp"
+                        android:text="Yet to Start"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/themeTextColor"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/DurationHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/StartHint"
+                        android:layout_marginStart="150dp"
+                        android:padding="2dp"
+                        android:text="Duration: "
+                        android:textAlignment="gravity"
+                        android:textColor="@color/themeTextColor"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/EmployeeStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/DurationHint"
+                        android:layout_marginStart="150dp"
+                        android:padding="2dp"
+                        android:text="Employee: "
+                        android:textAlignment="gravity"
+                        android:textColor="@color/themeTextColor"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/EmployeeStart"
+                        android:layout_marginStart="10dp"
+                        android:padding="2dp"
+                        android:text="Work Details-"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/themeTextColor"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -775,16 +849,16 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/AssignAgentBtn"
+                android:id="@+id/StartActionBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/LinearDetailLayout"
                 android:layout_alignParentBottom="true"
                 android:background="@android:color/holo_orange_light"
                 android:gravity="center"
                 android:maxEms="20"
+                android:layout_below="@id/LinearDetailLayout"
                 android:overScrollMode="ifContentScrolls"
-                android:text="Assign Agent"
+                android:text="START ACTION"
                 android:textColor="@color/themeTextColor" />
 
         </RelativeLayout>

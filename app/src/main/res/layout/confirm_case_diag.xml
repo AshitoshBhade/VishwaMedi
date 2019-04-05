@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CasDetailFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -19,14 +18,13 @@
 
 
             <LinearLayout
+                android:id="@+id/LinearConfirmLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/CaseDetailCard"
                 android:layout_marginTop="0dp"
                 android:divider="@color/cardview_shadow_start_color"
-                android:showDividers="end"
-                android:id="@+id/LinearDetailLayout"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:showDividers="end">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -35,7 +33,7 @@
                     android:layout_marginBottom="5dp">
 
                     <TextView
-                        android:id="@+id/DetailCurrentStatusHead"
+                        android:id="@+id/ConfirmCurrentStatusHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -45,10 +43,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailCurrentStatus"
+                        android:id="@+id/ConfirmCurrentStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailCurrentStatusHead"
+                        android:layout_below="@id/ConfirmCurrentStatusHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -75,7 +73,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailCreatedByHead"
+                        android:id="@+id/ConfirmCreatedByHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -85,10 +83,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailCreatedBy"
+                        android:id="@+id/ConfirmCreatedBy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailCreatedByHead"
+                        android:layout_below="@id/ConfirmCreatedByHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -114,7 +112,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailTrackIDHead"
+                        android:id="@+id/ConfirmTrackIDHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -124,10 +122,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailTrackId"
+                        android:id="@+id/ConfirmTrackId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailTrackIDHead"
+                        android:layout_below="@id/ConfirmTrackIDHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -152,7 +150,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailCompanyHead"
+                        android:id="@+id/ConfirmCompanyHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -162,10 +160,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailCompanyName"
+                        android:id="@+id/ConfirmCompanyName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailCompanyHead"
+                        android:layout_below="@id/ConfirmCompanyHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -190,7 +188,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailPatientHead"
+                        android:id="@+id/ConfirmPatientHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -200,10 +198,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailPatient"
+                        android:id="@+id/ConfirmPatient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailPatientHead"
+                        android:layout_below="@id/ConfirmPatientHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -228,7 +226,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailHospitalHead"
+                        android:id="@+id/ConfirmHospitalHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -238,10 +236,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailHospital"
+                        android:id="@+id/ConfirmHospital"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailHospitalHead"
+                        android:layout_below="@id/ConfirmHospitalHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -266,7 +264,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailPhoneHead"
+                        android:id="@+id/ConfirmPhoneHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -276,10 +274,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailPhone"
+                        android:id="@+id/ConfirmPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailPhoneHead"
+                        android:layout_below="@id/ConfirmPhoneHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -301,13 +299,12 @@
                     android:gravity="center" />
 
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailEmployeeHead"
+                        android:id="@+id/ConfirmEmployeeHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -317,10 +314,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailEmployee"
+                        android:id="@+id/ConfirmEmployee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailEmployeeHead"
+                        android:layout_below="@id/ConfirmEmployeeHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -347,7 +344,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailTreatingDocHead"
+                        android:id="@+id/ConfirmTreatingDocHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -357,10 +354,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailTreatingDoc"
+                        android:id="@+id/ConfirmTreatingDoc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailTreatingDocHead"
+                        android:layout_below="@id/ConfirmTreatingDocHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -387,7 +384,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailAddressHead"
+                        android:id="@+id/ConfirmAddressHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -397,10 +394,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailAddress"
+                        android:id="@+id/ConfirmAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailAddressHead"
+                        android:layout_below="@id/ConfirmAddressHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -426,7 +423,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailLandmarkHead"
+                        android:id="@+id/ConfirmLandmarkHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -436,10 +433,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailLandmark"
+                        android:id="@+id/ConfirmLandmark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailLandmarkHead"
+                        android:layout_below="@id/ConfirmLandmarkHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -465,7 +462,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailStateHead"
+                        android:id="@+id/ConfirmStateHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -475,10 +472,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailState"
+                        android:id="@+id/ConfirmState"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailStateHead"
+                        android:layout_below="@id/ConfirmStateHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -504,7 +501,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailDistHead"
+                        android:id="@+id/ConfirmDistHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -514,10 +511,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailDist"
+                        android:id="@+id/ConfirmDist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailDistHead"
+                        android:layout_below="@id/ConfirmDistHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -543,7 +540,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailPincodeHead"
+                        android:id="@+id/ConfirmPincodeHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -553,10 +550,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailPincode"
+                        android:id="@+id/ConfirmPincode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailPincodeHead"
+                        android:layout_below="@id/ConfirmPincodeHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -581,7 +578,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailVendorHead"
+                        android:id="@+id/ConfirmVendorHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -591,10 +588,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailVendor"
+                        android:id="@+id/ConfirmVendor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailVendorHead"
+                        android:layout_below="@id/ConfirmVendorHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -620,7 +617,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailCaseDateHead"
+                        android:id="@+id/ConfirmCaseDateHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -630,10 +627,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailCaseDate"
+                        android:id="@+id/ConfirmCaseDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailCaseDateHead"
+                        android:layout_below="@id/ConfirmCaseDateHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -660,7 +657,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailAdmissionDateHead"
+                        android:id="@+id/ConfirmAdmissionDateHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -670,10 +667,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailAdmissionDate"
+                        android:id="@+id/ConfirmAdmissionDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailAdmissionDateHead"
+                        android:layout_below="@id/ConfirmAdmissionDateHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -699,7 +696,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/DetailRemarkHead"
+                        android:id="@+id/ConfirmRemarkHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -709,10 +706,10 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/DetailRemark"
+                        android:id="@+id/ConfirmRemark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailRemarkHead"
+                        android:layout_below="@id/ConfirmRemarkHead"
                         android:layout_marginStart="13dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="10dp"
@@ -734,58 +731,51 @@
                     android:gravity="center" />
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/DetailVerifierHead"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Verifier Name"
-                        android:textAlignment="textStart"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/DetailVerifier"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/DetailVerifierHead"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Verifier"
-                        android:textAlignment="textStart"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#000000"
-                    android:gravity="center" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/AssignAgentBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/LinearDetailLayout"
+                android:layout_below="@id/LinearConfirmLayout"
                 android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:gravity="center"
-                android:maxEms="20"
-                android:overScrollMode="ifContentScrolls"
-                android:text="Assign Agent"
-                android:textColor="@color/themeTextColor" />
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/ConfirmBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="#00c853"
+                    android:gravity="center"
+                    android:maxEms="20"
+                    android:overScrollMode="ifContentScrolls"
+                    android:padding="5dp"
+                    android:text="Confirm"
+                    android:textColor="@color/themeTextColor" />
+
+                <Button
+                    android:id="@+id/CancelBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:maxEms="20"
+                    android:overScrollMode="ifContentScrolls"
+                    android:padding="5dp"
+                    android:text="Reject"
+                    android:textColor="@color/themeTextColor" />
+
+            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>
