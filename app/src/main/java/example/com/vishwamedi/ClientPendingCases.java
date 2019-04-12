@@ -3,7 +3,6 @@ package example.com.vishwamedi;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,7 +19,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.Nullable;
@@ -32,7 +29,7 @@ import example.com.vishwamedi.model.CasePostModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class ClientPendingCases extends Fragment {
 
 
     private ArrayList<CasePostModel> list;
@@ -41,10 +38,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseFirestore fs;
     private ProgressDialog pd;
-    private CasePostFragment casePostFragment;
-    private FloatingActionButton addpostBtn;
 
-    public HomeFragment() {
+    private String Email;
+
+    public ClientPendingCases() {
         // Required empty public constructor
     }
 
@@ -53,56 +50,35 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_home, container, false);
+        View v= inflater.inflate(R.layout.fragment_client_pending_cases, container, false);
+
 
         fs=FirebaseFirestore.getInstance();
         pd=new ProgressDialog(getActivity());
 
         list=new ArrayList<>();
 
-        adapter=new HomeAdapter("CetralTeamFrag",getActivity(),list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+        adapter=new HomeAdapter("ClientFrag", getActivity(),list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+
+        Email= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
 
 
 
-
-        recyclerView=v.findViewById(R.id.CasesRecycler);
+        recyclerView=v.findViewById(R.id.ClientCasesRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        pd.setMessage("Wait Until Loading");
+        pd.setMessage("Wait Until Loading Cases");
         pd.setCanceledOnTouchOutside(false);
         pd.show();
 
 
-        addpostBtn=v.findViewById(R.id.AddPostBtn);
-
-
-        addpostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*
-                casePostFragment=new CasePostFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                        .add(casePostFragment,"PostCaseFragment").addToBackStack("PostCaseFragment");
-                fragmentTransaction.replace(R.id.MainLayout, casePostFragment);
-                fragmentTransaction.commit();
-                */
-
-                fetchExcelFragment=new FetchExcelFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                        .add(fetchExcelFragment,"fetchCsvFragment").addToBackStack("fetchCsvFragment");
-
-                fragmentTransaction.replace(R.id.MainLayout, fetchExcelFragment);
-                fragmentTransaction.commit();
-
-            }
-        });
 
 
         //Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
-        fs.collection("Cases").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        fs.collection("Agent").document(Email).collection("Cases")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -126,6 +102,8 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+
         return v;
     }
 

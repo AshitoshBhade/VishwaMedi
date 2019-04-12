@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -25,18 +26,76 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_google_login,btn_email_login;
-    private EditText edt_email,edt_pass;
+    private Button btn_google_login,loginbtn;
+    private EditText email,pass;
     private GoogleSignInClient mGoogleSignInClient;
     private String gmail;
     private ProgressDialog pd;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        pd=new ProgressDialog(this);
+        email=findViewById(R.id.login_email);
+        pass=findViewById(R.id.login_password);
+        loginbtn=findViewById(R.id.login_button);
+
+
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pd.setMessage("Wait until logging in");
+                pd.setCanceledOnTouchOutside(false);
+                pd.show();
+
+                String emailStr,passStr;
+
+                emailStr=email.getText().toString();
+                passStr=pass.getText().toString();
+
+                if(emailStr.isEmpty())
+                {
+                    email.setError("Enter Email");
+                    email.setFocusable(true);
+                }
+                else if (passStr.isEmpty())
+                {
+                    pass.setError("Enter Password");
+                    pass.setFocusable(true);
+                }
+                else
+                {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(emailStr,passStr)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(getApplicationContext(), "Successfully Logged In", Toast.LENGTH_SHORT).show();
+
+                                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        pd.dismiss();
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LoginActivity.this, "failed to login: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            pd.dismiss();
+                        }
+                    });
+                }
+            }
+        });
 
         btn_google_login=findViewById(R.id.google_sign_in);
         btn_google_login.setOnClickListener(this);
@@ -45,7 +104,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .requestEmail()
                 .build();
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
-        pd=new ProgressDialog(this);
+
+
     }
     private void signIn()
     {
@@ -84,11 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
                             Toast.makeText(LoginActivity.this, ""+isNew, Toast.LENGTH_SHORT).show();
                             if(isNew) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(LoginActivity.this, "New User.....", Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(LoginActivity.this,Registration.class);
-                                intent.putExtra("email",user.getEmail());
-                                startActivity(intent);
+
                                 pd.dismiss();
                             }
                             else

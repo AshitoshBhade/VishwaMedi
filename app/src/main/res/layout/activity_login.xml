@@ -44,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="login"
-            android:background="@drawable/rounded_border"/>
+            android:background="@color/themeWidgetColor"
+            android:text="login" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,8 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@drawable/rounded_border"
-            android:drawableLeft="@drawable/google"
+            android:background="@color/themeWidgetColor"
             android:text="Sign in with Google"
             android:drawablePadding="5dp"
             android:padding="10dp"
