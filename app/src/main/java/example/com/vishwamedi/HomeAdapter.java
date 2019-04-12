@@ -13,29 +13,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.thoughtbot.expandablerecyclerview.ExpandCollapseController;
-import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
-import com.thoughtbot.expandablerecyclerview.listeners.ExpandCollapseListener;
-import com.thoughtbot.expandablerecyclerview.listeners.GroupExpandCollapseListener;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableList;
-import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
-import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import example.com.vishwamedi.model.CasePostModel;
 
@@ -43,9 +30,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
 {
     private ArrayList<CasePostModel> list;
     private FragmentManager fragmentManager;
-    Activity activity;
-    public HomeAdapter(FragmentActivity activity, ArrayList<CasePostModel> list, FragmentManager supportFragmentManager) {
+    private Activity activity;
+    private String frag;
 
+    public HomeAdapter(String frag, FragmentActivity activity, ArrayList<CasePostModel> list, FragmentManager supportFragmentManager) {
+
+        this.frag=frag;
         this.activity=activity;
         this.list=list;
         fragmentManager=supportFragmentManager;
@@ -69,12 +59,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
             @Override
             public void onClick(View v) {
 
+
                 CasDetailFragment fragment=new CasDetailFragment();
 
                 Bundle bundle=new Bundle();
 
                 bundle.putString("Status",list.get(position).getStatus());
-                bundle.putString("TrackID",list.get(position).getTrackId());
+                bundle.putString("TrackId",list.get(position).getTrackId());
+
+                Toast.makeText(activity, "Track: "+list.get(position).getTrackId(), Toast.LENGTH_SHORT).show();
+
                 bundle.putString("CompanyName",list.get(position).getCompanyName());
                 bundle.putString("Patient",list.get(position).getPatientName());
                 bundle.putString("Hospital",list.get(position).getHospitalName());
@@ -91,8 +85,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
                 bundle.putString("Remark",list.get(position).getRemark());
 
                 bundle.putString("Disease",list.get(position).getDiseaseName());
-
-
+                bundle.putString("Fragment",frag);
 
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                         .add(fragment,"DetailCaseFragment").addToBackStack("DetailCaseFragment");
@@ -109,6 +102,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> im
 
         holder.call.setTag(list.get(position).getPhoneNo());
         holder.call.setOnClickListener(new View.OnClickListener() {
+
             @SuppressLint("PrivateApi")
             @Override
             public void onClick(View v) {

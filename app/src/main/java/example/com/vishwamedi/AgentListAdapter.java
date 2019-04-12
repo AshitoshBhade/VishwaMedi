@@ -99,12 +99,12 @@ public class AgentListAdapter extends RecyclerView.Adapter<AgentListAdapter.View
             @Override
             public void onClick(View v) {
 
-                FirebaseFirestore fs=FirebaseFirestore.getInstance();
+                final FirebaseFirestore fs=FirebaseFirestore.getInstance();
 
 
                 HashMap<String,Object> data=new HashMap<>();
 
-                data.put("TrackID",bundle.getString("TrackID"));
+                data.put("TrackId",bundle.getString("TrackId"));
                 data.put("CompanyName",bundle.getString("CompanyName"));
                 data.put("PatientName",bundle.getString("Patient"));
                 data.put("DiseaseName",bundle.getString("Disease"));
@@ -124,7 +124,7 @@ public class AgentListAdapter extends RecyclerView.Adapter<AgentListAdapter.View
 
 
                 fs.collection("Agent").document(list.get(position).getEmail()).collection("Cases")
-                        .document(Objects.requireNonNull(bundle.getString("TrackID")))
+                        .document(Objects.requireNonNull(bundle.getString("TrackId")))
                         .set(data,SetOptions.merge())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -132,16 +132,36 @@ public class AgentListAdapter extends RecyclerView.Adapter<AgentListAdapter.View
 
                                 if (task.isSuccessful())
                                 {
+                                    Map<String,Object> temp=new HashMap<>();
+                                    temp.put("Status","2");
 
-                                    dialog.dismiss();
-                                    homeFragment=new HomeFragment();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
-                                            .add(homeFragment,"home").addToBackStack("home");
+                                    fs.collection("Cases").document(Objects.requireNonNull(bundle.getString("TrackId")))
+                                            .update(temp)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
 
-                                    fragmentTransaction.replace(R.id.MainLayout, homeFragment);
-                                    fragmentTransaction.commit();
+                                                    if (task.isSuccessful())
+                                                    {
+                                                        dialog.dismiss();
+                                                        homeFragment=new HomeFragment();
+                                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+                                                                .add(homeFragment,"home").addToBackStack("home");
 
-                                    Toast.makeText(activity, "Successfully case Assigned", Toast.LENGTH_SHORT).show();
+                                                        fragmentTransaction.replace(R.id.MainLayout, homeFragment);
+                                                        fragmentTransaction.commit();
+
+                                                        Toast.makeText(activity, "Successfully case Assigned", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                            Toast.makeText(activity, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
 
                                 }
                             }

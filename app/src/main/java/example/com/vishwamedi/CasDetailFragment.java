@@ -4,7 +4,9 @@ package example.com.vishwamedi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.annotation.Nullable;
@@ -43,9 +53,13 @@ public class CasDetailFragment extends Fragment {
 
     private ArrayList<AgentModel> list;
 
+    private LinearLayout linearLayout;
+
     private Bundle bundle;
-    private Button AssignAgent;
+    private Button AssignAgent,acceptCase,rejectCase;
     private ProgressDialog pd;
+
+    private  String frag;
 
     private Dialog dialog;
 
@@ -64,9 +78,19 @@ public class CasDetailFragment extends Fragment {
 
         bundle=getArguments();
 
+        frag= Objects.requireNonNull(bundle).getString("Fragment");
+
+        Toast.makeText(getActivity(), "Frag: "+frag, Toast.LENGTH_SHORT).show();
+
+
         fs=FirebaseFirestore.getInstance();
 
-        AssignAgent=v.findViewById(R.id.AssignAgentBtn);
+        AssignAgent = v.findViewById(R.id.AssignAgentBtn);
+
+        linearLayout=v.findViewById(R.id.ClientAcceptLayout);
+
+        acceptCase=v.findViewById(R.id.AcceptBtn);
+        rejectCase=v.findViewById(R.id.RejectBtn);
 
 
         CaseEployee=v.findViewById(R.id.EmployeeStart);
@@ -102,7 +126,7 @@ public class CasDetailFragment extends Fragment {
 
 
         createdBy.setText("Me");
-        TrackId.setText(bundle.getString("TrackID"));
+        TrackId.setText(bundle.getString("TrackId"));
         CompanyName.setText(bundle.getString("CompanyName"));
         Patient.setText(bundle.getString("Patient"));
         hospitalName.setText(bundle.getString("Hospital"));
@@ -126,58 +150,142 @@ public class CasDetailFragment extends Fragment {
      //   pd.show();
 
 
-        AssignAgent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (frag.equals("CetralTeamFrag")) {
 
-                dialog = new Dialog(Objects.requireNonNull(getActivity()));
-                dialog.setContentView(R.layout.agent_list_layout);
-                dialog.setCancelable(true);
 
-                RecyclerView recyclerView=dialog.findViewById(R.id.AgentListRecycler);
+            Toast.makeText(getActivity(), "CentralTeamFrag", Toast.LENGTH_SHORT).show();
 
-                list=new ArrayList<>();
+            AssignAgent.setVisibility(View.VISIBLE);
 
-                agentListAdapter=new AgentListAdapter(dialog,bundle,getActivity(),list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+            linearLayout.setVisibility(View.GONE);
+            acceptCase.setVisibility(View.GONE);
+            rejectCase.setVisibility(View.GONE);
 
-                dialog.show();
+            AssignAgent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(agentListAdapter);
+                    dialog = new Dialog(Objects.requireNonNull(getActivity()));
+                    dialog.setContentView(R.layout.agent_list_layout);
+                    dialog.setCancelable(true);
 
-                pd.setMessage("Wait Until Loading");
-                pd.setCanceledOnTouchOutside(false);
-                pd.show();
+                    RecyclerView recyclerView = dialog.findViewById(R.id.AgentListRecycler);
 
-                fs.collection("Agent").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    list = new ArrayList<>();
 
-                        if (e != null) {
-                            Log.e("Error: " + e.getMessage(), "Error");
-                        } else {
-                            for (DocumentChange doc : Objects.requireNonNull(queryDocumentSnapshots).getDocumentChanges()) {
-                                if (doc.getType().equals(DocumentChange.Type.ADDED)) {
+                    agentListAdapter = new AgentListAdapter(dialog, bundle, getActivity(), list, Objects.requireNonNull(getActivity()).getSupportFragmentManager());
 
-                                    AgentModel model = doc.getDocument().toObject(AgentModel.class);
-                                    list.add(model);
+                    dialog.show();
 
-                                    agentListAdapter.notifyDataSetChanged();
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.setAdapter(agentListAdapter);
+
+                    pd.setMessage("Wait Until Loading");
+                    pd.setCanceledOnTouchOutside(false);
+                    pd.show();
+
+                    fs.collection("Agent").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                            if (e != null) {
+                                Log.e("Error: " + e.getMessage(), "Error");
+                            } else {
+                                for (DocumentChange doc : Objects.requireNonNull(queryDocumentSnapshots).getDocumentChanges()) {
+                                    if (doc.getType().equals(DocumentChange.Type.ADDED)) {
+
+                                        AgentModel model = doc.getDocument().toObject(AgentModel.class);
+                                        list.add(model);
+
+                                        agentListAdapter.notifyDataSetChanged();
+                                    }
                                 }
+
+                                pd.hide();
+                                pd.dismiss();
                             }
-
-                            pd.hide();
-                            pd.dismiss();
                         }
-                    }
-                });
+                    });
 
 
+                }
+            });
+        }
+        else if(frag.equals("ClientFrag"))
+        {
+            AssignAgent.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+            acceptCase.setVisibility(View.VISIBLE);
+            rejectCase.setVisibility(View.VISIBLE);
 
-            }
-        });
+            Toast.makeText(getActivity(), "AgentFrag", Toast.LENGTH_SHORT).show();
 
+            acceptCase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
+
+            rejectCase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Map<String,Object> temp=new HashMap<>();
+                    temp.put("Status","1");
+
+                    fs.collection("Cases").document(Objects.requireNonNull(bundle.getString("TrackId")))
+                            .update(temp)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(getActivity(), "Rejected", Toast.LENGTH_SHORT).show();
+
+                                        fs.collection("Agent").document(Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()))
+                                                .collection("Cases")
+                                                .document(Objects.requireNonNull(bundle.getString("TrackId")))
+                                                .delete()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        ClientPendingCases fragment=new ClientPendingCases();
+
+                                                        android.support.v4.app.FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                                                                .add(fragment,"ClientPendingCaseFragment").addToBackStack("ClientPendingCaseFragment");
+
+
+                                                        fragment.setArguments(bundle);
+                                                        fragmentTransaction.replace(R.id.MainLayout, fragment);
+                                                        fragmentTransaction.commit();
+
+                                                        Toast.makeText(getActivity(), "Sucessfully Rejected Case", Toast.LENGTH_SHORT).show();
+
+
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) { Toast.makeText(getActivity(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(getActivity(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }
 
 
 

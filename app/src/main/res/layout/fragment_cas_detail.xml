@@ -787,6 +787,50 @@
                 android:text="Assign Agent"
                 android:textColor="@color/themeTextColor" />
 
+            <LinearLayout
+                android:id="@+id/ClientAcceptLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/AssignAgentBtn"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_orange_light"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/AcceptBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="#00c853"
+                    android:gravity="center"
+                    android:maxEms="20"
+                    android:overScrollMode="ifContentScrolls"
+                    android:padding="5dp"
+                    android:text="@string/accept"
+                    android:textColor="@color/themeTextColor" />
+
+                <Button
+                    android:id="@+id/RejectBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:maxEms="20"
+                    android:overScrollMode="ifContentScrolls"
+                    android:padding="5dp"
+                    android:text="@string/reject"
+                    android:textColor="@color/themeTextColor" />
+
+            </LinearLayout>
+
+
         </RelativeLayout>
     </ScrollView>
 

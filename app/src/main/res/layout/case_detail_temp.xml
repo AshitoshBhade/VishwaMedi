@@ -858,8 +858,11 @@
                 android:maxEms="20"
                 android:layout_below="@id/LinearDetailLayout"
                 android:overScrollMode="ifContentScrolls"
-                android:text="START ACTION"
+                android:text="@string/start_action"
                 android:textColor="@color/themeTextColor" />
+
+
+
 
         </RelativeLayout>
     </ScrollView>
